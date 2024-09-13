@@ -1,0 +1,59 @@
+name: NestJS CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Build backend application
+        run: |
+          cd backend
+          npm run build
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          npm test
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build frontend application
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm test
