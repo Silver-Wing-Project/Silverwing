@@ -7,3 +7,6 @@
 
 # Shell scripts
 *.sh
+
+# Python Virtual Environment
+/.venv
