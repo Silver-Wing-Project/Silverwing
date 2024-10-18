@@ -10,3 +10,6 @@
 
 # Python Virtual Environment
 /.venv
+
+# IDE - VSCode
+.vscode/*
