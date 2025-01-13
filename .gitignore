@@ -1,12 +1,14 @@
 # Git and GitHub
 .git
+.gitmodules
 .github/pr_workflows/
+.github/workflows/
 .github/CODEOWNERS
-.github/pull_request_template.md
 .github/PR_DESCRIPTION.md
 
 # Shell scripts
 *.sh
+*.md
 
 # Python Virtual Environment
 /.venv
