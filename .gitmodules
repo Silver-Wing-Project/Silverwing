@@ -1,0 +1,9 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Silver-Wing-Project/Silverwing-Backend
+	branch = master
+# # exmaple for frontend
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Silver-Wing-Project/Silverwing-Frontend
+	branch = master
