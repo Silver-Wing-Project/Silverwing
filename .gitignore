@@ -16,3 +16,9 @@
 
 # IDE - VSCode
 .vscode/*
+
+# Dependencies
+node_modules/
+
+# Root level
+/package-lock.json

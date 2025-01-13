@@ -1,0 +1,19 @@
+{
+    "name": "silverwing",
+    "version": "0.0.1",
+    "private": true,
+    "workspaces": [
+      "frontend",
+      "backend"
+    ],
+    "scripts": {
+      "install:all": "npm install && npm run install:deps",
+      "install:deps": "cd frontend && npm install && cd ../backend && npm install",
+      "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+      "dev:frontend": "cd frontend && npm run dev",
+      "dev:backend": "cd backend && npm run start:dev"
+    },
+    "devDependencies": {
+      "concurrently": "^8.2.2"
+    }
+  }
