@@ -1,5 +1,6 @@
 # Git and GitHub
 .git
+.github/
 .gitmodules
 .github/pr_workflows/
 .github/workflows/
