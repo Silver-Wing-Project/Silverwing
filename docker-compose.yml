@@ -1,0 +1,66 @@
+services:
+  silverwing-frontend:
+    container_name: silverwing-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: deps
+    command: npm run dev
+    restart: always
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend:/app
+      - node_modules_frontend:/app/node_modules
+      - next_frontend:/app/.next
+    networks:
+      - silverwing-net
+    ports:
+      - "3000:3000"
+
+  silverwing-backend:
+    container_name: silverwing-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    command: ./wait-for-it.sh mongodb:27017 -- npm run start:dev
+    restart: always
+    volumes:
+      - ./backend:/usr/src/app
+      - node_modules_backend:/usr/src/app/node_modules
+    ports:
+      - "3001:3001"
+    networks:
+      - silverwing-net
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    networks:
+      - silverwing-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+networks:
+  silverwing-net:
+    driver: bridge
+
+volumes:
+  node_modules_frontend:
+  next_frontend:
+  node_modules_backend:
+  mongodb_data:
